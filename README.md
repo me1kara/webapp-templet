@@ -1,2 +1,7 @@
 # webapp-templet
-test, devops, react 등 아키텍쳐 조성하는 용도
+test, devops 아키텍쳐 조성하는 용도
+
+# etc
+swagger, test-code, docker, application.yml, thymeleaf
+
+
