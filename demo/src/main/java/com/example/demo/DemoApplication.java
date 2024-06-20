@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import java.util.Arrays;
 
 @SpringBootApplication
-@OpenAPIDefinition(info = @Info(title = "My API", version = "v2"))
+@OpenAPIDefinition(info = @Info(title = "My API", version = "v1"))
 public class DemoApplication {
 
 	public static void main(String[] args) {
