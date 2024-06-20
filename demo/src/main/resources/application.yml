@@ -1,0 +1,104 @@
+spring:
+  application:
+    name: demo
+  profiles:
+    active: prod
+  jpa:
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+    show-sql: true
+  thymeleaf:
+    cache: false
+  output:
+    ansi:
+      enabled: always
+
+management:
+  info:
+    java:
+      enabled: true
+    os:
+      enabled: true
+    env:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+      show-components : always
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+info:
+  app:
+    name: demo
+    company: hjh
+
+# local
+---
+spring:
+  config:
+    activate:
+      on-profile: local # 환경이름설정
+    import: classpath:local/db.yml
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      dialect: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  sql:
+    init:
+      mode: always
+server:
+  port: 8080
+  error:
+    include-exception: true # 오류 응답에 exception의 내용을 포함할지 여부
+    include-stacktrace: always # 오류 응답에 stacktrace 내용을 포함할 지 여부
+logging:
+  file:
+    path : ./logs/local
+    max-size: 500MB
+    max-history: 10
+  level:
+    root: info
+  pattern:
+    console: "%d{yyyy.MM.dd HH:mm:ss.SSS} %5p - %t [TRX_ID: %X{trx_id}] %-40.40logger{39} : %msg%n"
+    file: "%d{yyyy.MM.dd HH:mm:ss.SSS} %5p - %t [TRX_ID: %X{trx_id}] %-40.40logger{39} : %msg%n"
+
+# prod
+---
+spring:
+  config:
+    activate:
+      on-profile: prod # 환경이름설정
+    import: classpath:prod/db.yml
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      dialect: org.hibernate.dialect.MariaDBDialect
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
+server:
+  port: 8090
+  error:
+    include-exception: true
+    include-stacktrace: always
+logging:
+  file:
+    path : ./logs/prod
+    max-size: 500MB
+    max-history: 10
+  level:
+    root: info
+  pattern:
+    console: "%d{yyyy.MM.dd HH:mm:ss.SSS} %5p - %t [TRX_ID: %X{trx_id}] %-40.40logger{39} : %msg%n"
+    file: "%d{yyyy.MM.dd HH:mm:ss.SSS} %5p - %t [TRX_ID: %X{trx_id}] %-40.40logger{39} : %msg%n"
